@@ -1,2 +1,2 @@
-from frozen.frozendict import *
-from frozen.deepfreeze import *
+from icicle.frozendict import *
+from icicle.deepfreeze import *
