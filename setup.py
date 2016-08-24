@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
   name='icicle',
-  version='0.1.2',
+  version='0.1.3',
   description='Python FrozenDict and DeepFreeze',
   url='https://github.com/pcattori/icicle',
   author='Pedro Cattori',

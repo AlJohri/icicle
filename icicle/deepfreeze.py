@@ -1,5 +1,5 @@
 import collections
-import icicle.FrozenDict
+from icicle import FrozenDict
 
 # TODO buffer?
 already_immutable = frozenset([
