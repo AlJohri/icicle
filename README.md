@@ -1,5 +1,9 @@
 # icicle
 
+```bash
+$ pip install icicle
+```
+
 ## FrozenDict
 As [implemented by Raymond Hettinger](http://stackoverflow.com/questions/9997176/immutable-dictionary-only-use-as-a-key-for-another-dictionary).
 
