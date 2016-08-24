@@ -1,6 +1,7 @@
 import collections
 
 class FrozenDict(collections.Mapping):
+  '''Immutable dictionary.'''
 
   def __init__(self, *args, **kwargs):
     self._dict = dict(*args, **kwargs)
@@ -16,6 +17,7 @@ class FrozenDict(collections.Mapping):
     return len(self._dict)
 
   def __hash__(self):
+    '''Caches lazily-computed hash value.'''
     if self._hash is None:
       self._hash = hash(frozenset(self._dict.items()))
     return self._hash

@@ -1,5 +1,5 @@
 import collections
-import frozen.FrozenDict
+import icicle.FrozenDict
 
 # TODO buffer?
 already_immutable = frozenset([
@@ -15,6 +15,7 @@ to_immutable = FrozenDict({
 })
 
 def freeze(obj):
+  '''Returns an immutable copy of the object.'''
   t = type(obj)
   if t in already_immutable:
     return obj
@@ -24,6 +25,7 @@ def freeze(obj):
     raise ValueError("type '{}' has no immutable counter-part")
 
 def deep_freeze(obj):
+  '''Deep immutable copy of the object (recursively makes immutable copies).'''
   if not isinstance(obj, collections.Iterable):
     return freeze(obj)
   items = tuple(deep_freeze(child) for child in obj)
