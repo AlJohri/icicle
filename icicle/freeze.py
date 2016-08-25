@@ -6,9 +6,11 @@ ALREADY_IMMUTABLE = frozenset([
   type(None), # NoneType
   int, long, float, complex, # numeric types
   str, unicode, bytes, tuple, # sequences
-  frozenset # sets
+  frozenset, # sets
+  FrozenDict # mappings
 ])
 
+# type -> transform function
 TO_IMMUTABLE = FrozenDict({
   bytearray: str, list: tuple, # sequences
   set: frozenset, # sets
@@ -29,22 +31,30 @@ class Freezer(object):
     elif t in TO_IMMUTABLE:
       return TO_IMMUTABLE[t](obj)
     else:
-      raise ValueError("type '{}' has no immutable counter-part")
+      raise ValueError("type '{}' has no immutable counter-part".format(t))
 
   def deep_freeze(self, obj):
     '''Deep immutable copy of the object (recursively makes immutable copies).'''
     if not isinstance(obj, collections.Iterable):
       return freeze(obj)
-    print 'obj', obj
+
+    # list, set, dict
     items = tuple(deep_freeze(child) for child in obj)
-    print 'items', items
+    if isinstance(obj, dict) or isinstance(obj, FrozenDict):
+      items = [(k, deep_freeze(v)) for k,v in obj.iteritems()]
+
     t = type(obj)
-    if t in ALREADY_IMMUTABLE:
+    # TODO check for custom transform??
+    if t in self.immutable_transforms:
+      # TODO what about children?
+      items = self.children[t](obj)
+      return self.immutable_transforms[t](items)
+    elif t in ALREADY_IMMUTABLE:
       return t(items)
     elif t in TO_IMMUTABLE:
       return TO_IMMUTABLE[t](items)
     else:
-      raise ValueError("type '{}' has no immutable counter-part")
+      raise ValueError("type '{}' has no immutable counter-part".format(t))
 
 DEFAULT_FREEZER = Freezer()
 

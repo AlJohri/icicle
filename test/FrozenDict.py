@@ -19,7 +19,8 @@ class FrozenDictTest(unittest.TestCase):
     fd = FrozenDict(a=1)
     with self.assertRaises(TypeError) as context:
       fd['a'] = 2
-    self.assertIn("'FrozenDict' object does not support item assignment", context.exception.message)
+    message = "'FrozenDict' object does not support item assignment"
+    self.assertIn(message, context.exception.message)
 
 if __name__ == '__main__':
   unittest.main()
