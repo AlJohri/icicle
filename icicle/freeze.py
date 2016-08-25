@@ -15,11 +15,6 @@ TO_IMMUTABLE = FrozenDict({
   dict: FrozenDict # mappings
 })
 
-def properties(obj):
-  if hasattr(obj, '__dict__'):
-    return vars(obj)
-  return {}
-
 class Freezer(object):
 
   def __init__(self, immutable_transforms={}):
@@ -29,10 +24,10 @@ class Freezer(object):
     t = type(obj)
     if t in self.immutable_transforms:
       return self.immutable_transforms[t](obj)
-    elif t in already_immutable:
+    elif t in ALREADY_IMMUTABLE:
       return obj
-    elif t in to_immutable:
-      return to_immutable[t](obj)
+    elif t in TO_IMMUTABLE:
+      return TO_IMMUTABLE[t](obj)
     else:
       raise ValueError("type '{}' has no immutable counter-part")
 
@@ -44,10 +39,10 @@ class Freezer(object):
     items = tuple(deep_freeze(child) for child in obj)
     print 'items', items
     t = type(obj)
-    if t in already_immutable:
+    if t in ALREADY_IMMUTABLE:
       return t(items)
-    elif t in to_immutable:
-      return to_immutable[t](items)
+    elif t in TO_IMMUTABLE:
+      return TO_IMMUTABLE[t](items)
     else:
       raise ValueError("type '{}' has no immutable counter-part")
 
