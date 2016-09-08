@@ -1,9 +1,10 @@
 import collections
 from icicle import FrozenDict
 
-# TODO buffer?
+# TODO buffer? function??
 ALREADY_IMMUTABLE = frozenset([
   type(None), # NoneType
+  bool,
   int, long, float, complex, # numeric types
   str, unicode, bytes, tuple, # sequences
   frozenset, # sets
@@ -31,7 +32,7 @@ class Freezer(object):
     elif t in TO_IMMUTABLE:
       return TO_IMMUTABLE[t](obj)
     else:
-      raise ValueError("type '{}' has no immutable counter-part".format(t))
+      raise ValueError("type '{}' has no immutable counter-part".format(t.__name__))
 
   def deep_freeze(self, obj):
     '''Deep immutable copy of the object (recursively makes immutable copies).'''
@@ -54,7 +55,7 @@ class Freezer(object):
     elif t in TO_IMMUTABLE:
       return TO_IMMUTABLE[t](items)
     else:
-      raise ValueError("type '{}' has no immutable counter-part".format(t))
+      raise ValueError("type '{}' has no immutable counter-part".format(t.__name__))
 
 DEFAULT_FREEZER = Freezer()
 

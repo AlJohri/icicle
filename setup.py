@@ -8,5 +8,6 @@ setup(
   author='Pedro Cattori',
   author_email='pcattori@gmail.com',
   license='MIT',
-  packages=['icicle']
+  packages=['icicle'],
+  test_suite='tests'
 )
