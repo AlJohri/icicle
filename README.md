@@ -15,6 +15,8 @@ then
 from icicle import FrozenDict
 ```
 
+`FrozenDict` supports all non-mutating `dict` methods by subclassing [`Mapping`](https://docs.python.org/2/library/collections.html#collections.Mapping)
+
 ## FrozenDict
 As [designed by Raymond Hettinger](http://stackoverflow.com/a/9997519/1490091).
 
