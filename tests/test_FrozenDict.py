@@ -43,10 +43,6 @@ class FrozenDictTest(unittest.TestCase):
         h = hash(fd)
         self.assertIsInstance(h, int)
 
-    def test_repr(self):
-        fd = FrozenDict(a=1, b=2, c=3)
-        self.assertEqual(repr(fd), "FrozenDict({'a': 1, 'b': 2, 'c': 3})")
-
     def test_contains(self):
         fd = FrozenDict(a=1)
         self.assertIn('a', fd)

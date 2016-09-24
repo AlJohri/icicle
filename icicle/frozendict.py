@@ -27,7 +27,7 @@ class FrozenDict(collections.Mapping):
             self._hash = hash(frozenset(self._dict.items()))
         return self._hash
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         items = ('{}: {}'.format(repr(k),repr(v)) for k,v in sorted(self.items()))
         return '{}({{{}}})'.format(type(self).__name__, ', '.join(items))
 
@@ -39,6 +39,6 @@ class FrozenDictEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, FrozenDict):
             return dict(obj)
-        return JSONEncoder.default(self, obj)
+        return JSONEncoder.default(self, obj) # pragma: no cover
 
 
