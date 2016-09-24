@@ -30,3 +30,6 @@ class FrozenDict(collections.Mapping):
         items = ('{}: {}'.format(repr(k),repr(v)) for k,v in sorted(self.items()))
         return '{}({{{}}})'.format(type(self).__name__, ', '.join(items))
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self._dict == other._dict
+
