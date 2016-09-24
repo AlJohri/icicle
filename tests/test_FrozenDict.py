@@ -1,7 +1,8 @@
 from __future__ import absolute_import
+import json
 import unittest
 
-from icicle import FrozenDict
+from icicle import FrozenDict, FrozenDictEncoder
 
 class FrozenDictTest(unittest.TestCase):
 
@@ -42,10 +43,6 @@ class FrozenDictTest(unittest.TestCase):
         h = hash(fd)
         self.assertIsInstance(h, int)
 
-    def test_repr(self):
-        fd = FrozenDict(a=1, b=2, c=3)
-        self.assertEqual(repr(fd), "FrozenDict({'a': 1, 'b': 2, 'c': 3})")
-
     def test_contains(self):
         fd = FrozenDict(a=1)
         self.assertIn('a', fd)
@@ -77,6 +74,11 @@ class FrozenDictTest(unittest.TestCase):
         fd1 = FrozenDict(a=1, b=2, c=3)
         fd2 = FrozenDict(c=3, d=4)
         self.assertNotEqual(fd1, fd2)
+
+    def test_json(self):
+        d = {'a': 1, 'b': 2}
+        fd = FrozenDict(d)
+        self.assertEqual(json.dumps(d), json.dumps(fd, cls=FrozenDictEncoder))
 
 if __name__ == '__main__':
     unittest.main()

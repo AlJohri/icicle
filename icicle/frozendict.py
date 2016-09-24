@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import collections
+from json import JSONEncoder
 
 class FrozenDict(collections.Mapping):
     '''Immutable dictionary.'''
@@ -26,10 +27,18 @@ class FrozenDict(collections.Mapping):
             self._hash = hash(frozenset(self._dict.items()))
         return self._hash
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         items = ('{}: {}'.format(repr(k),repr(v)) for k,v in sorted(self.items()))
         return '{}({{{}}})'.format(type(self).__name__, ', '.join(items))
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self._dict == other._dict
+
+class FrozenDictEncoder(JSONEncoder):
+    '''Custom JSON encoder that converts FrozenDict to a dict.'''
+    def default(self, obj):
+        if isinstance(obj, FrozenDict):
+            return dict(obj)
+        return JSONEncoder.default(self, obj) # pragma: no cover
+
 
