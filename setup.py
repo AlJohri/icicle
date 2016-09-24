@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='icicle',
-    version='1.0.0',
+    version='1.0.1',
     description='Python FrozenDict',
     url='https://github.com/pcattori/icicle',
     author='Pedro Cattori',
