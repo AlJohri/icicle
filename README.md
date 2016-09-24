@@ -9,6 +9,12 @@
 $ pip install icicle
 ```
 
+then
+
+```python
+from icicle import FrozenDict
+```
+
 ## FrozenDict
 As [designed by Raymond Hettinger](http://stackoverflow.com/a/9997519/1490091).
 
