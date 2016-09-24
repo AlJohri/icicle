@@ -10,5 +10,5 @@ $ pip install icicle
 ```
 
 ## FrozenDict
-As [implemented by Raymond Hettinger](http://stackoverflow.com/a/9997519/1490091).
+As [designed by Raymond Hettinger](http://stackoverflow.com/a/9997519/1490091).
 
