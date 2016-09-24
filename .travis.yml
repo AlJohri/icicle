@@ -5,9 +5,11 @@ python:
 install: pip install .
 script:
 - coverage run --source icicle setup.py test
-- pylint --py3k icicle
+- python setup.py caniusepython3
+- pylint --py3k icicle tests
 # test coverage via codecov
 before_install:
+- pip install caniusepython3
 - pip install pylint
 - pip install codecov
 after_success: codecov
