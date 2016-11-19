@@ -2,11 +2,16 @@ from __future__ import absolute_import
 import collections
 from json import JSONEncoder
 
+try:
+    from types import MappingProxyType
+except ImportError:
+    MappingProxyType = lambda x: x # noop
+
 class FrozenDict(collections.Mapping):
     '''Immutable dictionary.'''
 
     def __init__(self, *args, **kwargs):
-        self._dict = dict(*args, **kwargs)
+        self._dict = MappingProxyType(dict(*args, **kwargs))
         self._hash = None
 
     def __getitem__(self, key):
